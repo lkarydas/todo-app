@@ -1,21 +1,42 @@
 package com.example.todo_app;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
-public class MainActivity extends Activity {
+
+public class MainActivity extends ListActivity {
 
 	private static final String TAG = "todo-app-main-activity";
+	
+    // Array list of strings.
+	// TODO Change this to TodoItem objects.
+    ArrayList<String> listItems = new ArrayList<String>();
+
+    // Adapter that will handle the list view data.
+    ArrayAdapter<String> adapter;
+	
+
+	String[] values = new String[] { "Drop off laundry", "Buy meat"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		for (int i = 0; i < values.length; i++) {
+			listItems.add(values[i]);
+		}
+		
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
+        setListAdapter(adapter);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -43,7 +64,9 @@ public class MainActivity extends Activity {
 	}
 	
 	void createNewItem() {
-		Log.v(TAG, "New Item button pressed.");		
+		Log.v(TAG, "New Item button pressed.");
+        listItems.add("Kokormex Warrior IV");
+        adapter.notifyDataSetChanged();
 	}
 	
 }
