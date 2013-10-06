@@ -2,11 +2,14 @@ package com.example.todo_app;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
+	private static final String TAG = "todo-app-main-activity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,4 +22,28 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_new:
+	        	createNewItem();
+	            return true;
+	        case R.id.action_settings:
+	            openSettings();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	void openSettings() {
+		Log.v(TAG, "Open Settings button pressed.");
+	}
+	
+	void createNewItem() {
+		Log.v(TAG, "New Item button pressed.");		
+	}
+	
 }
