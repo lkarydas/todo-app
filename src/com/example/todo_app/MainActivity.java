@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import android.widget.ArrayAdapter;
 
 public class MainActivity extends ListActivity {
 
-	private static final String TAG = "todo-app-main-activity";
+	private static final String TAG = "main-activity";
 	
     // Array list of strings.
 	// TODO Change this to TodoItem objects.
@@ -23,6 +24,26 @@ public class MainActivity extends ListActivity {
 	
 
 	String[] values = new String[] { "Drop off laundry", "Buy meat"};
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// If the intent that woke us up has extras
+		if (getIntent().getExtras() != null) {
+	        String itemText = (String) getIntent().getExtras().get("new_item_text");
+	        if (itemText != null) {
+	        	listItems.add(itemText);
+	        	adapter.notifyDataSetChanged();
+	        }
+		}
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+	    super.onNewIntent(intent);
+	    // getIntent() should always return the most recent
+	    setIntent(intent);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +86,13 @@ public class MainActivity extends ListActivity {
 	
 	void createNewItem() {
 		Log.v(TAG, "New Item button pressed.");
-        listItems.add("Kokormex Warrior IV");
-        adapter.notifyDataSetChanged();
+		
+		Intent myIntent = new Intent(MainActivity.this, NewItemActivity.class);
+		this.startActivity(myIntent);
+		
+
 	}
+	
+	
 	
 }
