@@ -33,5 +33,6 @@ public class NewItemActivity extends Activity{
 		intent.putExtra("new_item_text", text.toString());
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); 
 		this.startActivity(intent);
+		this.finish();
 	}
 }
