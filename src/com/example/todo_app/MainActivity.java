@@ -27,12 +27,14 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onResume() {
+		Log.v(TAG, "onResume()");
 		super.onResume();
 		// If the intent that woke us up has extras
 		if (getIntent().getExtras() != null) {
 	        String itemText = (String) getIntent().getExtras().get("new_item_text");
 	        if (itemText != null) {
 	        	listItems.add(itemText);
+	            Log.v(TAG, "List size: " + listItems.size());
 	        	adapter.notifyDataSetChanged();
 	        }
 		}
@@ -40,6 +42,7 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onNewIntent(Intent intent) {
+		Log.v(TAG, "onNewIntent()");
 	    super.onNewIntent(intent);
 	    // getIntent() should always return the most recent
 	    setIntent(intent);
@@ -47,6 +50,7 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.v(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -56,6 +60,7 @@ public class MainActivity extends ListActivity {
 		
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
+        Log.v(TAG, "List size: " + listItems.size());
 	}
 	
 	@Override

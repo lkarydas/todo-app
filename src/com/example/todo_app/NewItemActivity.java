@@ -29,9 +29,9 @@ public class NewItemActivity extends Activity{
 	void addItem() {
 		final EditText textBox = (EditText) findViewById(R.id.new_item_text);
 		Editable text = textBox.getText();
-		Intent myIntent = new Intent(NewItemActivity.this, MainActivity.class);
-		myIntent.putExtra("new_item_text", text.toString());
-		this.startActivity(myIntent);
+		Intent intent = new Intent(NewItemActivity.this, MainActivity.class);
+		intent.putExtra("new_item_text", text.toString());
+		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); 
+		this.startActivity(intent);
 	}
-	
 }
